@@ -1,0 +1,16 @@
+services:
+    madeyski.puap.request.authn_request_generator:
+        class: Madeyski\EpuapBundle\Request\AuthnRequestGenerator
+        arguments:
+            - "@router"
+            - "@madeyski.puap.security.common_signature_provider"
+
+    madeyski.puap.security.common_signature_provider:
+        class: Madeyski\EpuapBundle\Settings\CommonSignatureProvider
+        arguments:
+            - "%puap.settings%"
+
+    madeyski.puap.artifact_resolver:
+        class: Madeyski\EpuapBundle\Request\ArtifactResolutionRequestGenerator
+        arguments:
+            - "@madeyski.puap.security.common_signature_provider"

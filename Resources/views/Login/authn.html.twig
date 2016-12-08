@@ -1,0 +1,7 @@
+<html>
+<body onload="document.forms[0].submit()">
+<form method="post" action="{{ signOnUrl }}">
+    <input type="hidden" name="SAMLRequest" value="{{ samlRequest }}"/>
+</form>
+</body>
+</html>
