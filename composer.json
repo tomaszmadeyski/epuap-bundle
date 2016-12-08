@@ -1,0 +1,22 @@
+{
+  "name": "madeyski/epuap-bundle",
+  "type": "symfony-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Tomasz Madeyski",
+      "email": "tomasz.madeyski@gmail.com"
+    }
+  ],
+
+  "require": {
+    "php": ">=5.3.2",
+    "simplesamlphp/simplesamlphp": "^1.14"
+  },
+
+  "autoload": {
+    "psr-0": {
+      "Madeyski\\EpuapBundle": ""
+    }
+  }
+}
