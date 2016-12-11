@@ -1,3 +1,11 @@
+parameters:
+    puap.settings:
+        app_id: ~
+        security.pub_key_path: ~
+        security.private_key_path: ~
+        url.single_sign_on: https://pz.gov.pl/dt/SingleSignOnService
+        url.artifact_resolve: https://pz.gov.pl/dt-services/idpArtifactResolutionService
+
 services:
     madeyski.puap.request.authn_request_generator:
         class: Madeyski\EpuapBundle\Request\AuthnRequestGenerator

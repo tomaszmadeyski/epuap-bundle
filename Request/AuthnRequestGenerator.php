@@ -2,8 +2,8 @@
 
 namespace Madeyski\EpuapBundle\Request;
 
-use Madeyski\EpuapBundle\WSSecurity\CommonSignatureProvider;
-use Madeyski\EpuapBundle\WSSecurity\CommonSignatureProviderInterface;
+use Madeyski\EpuapBundle\Settings\CommonSignatureProvider;
+use Madeyski\EpuapBundle\Settings\CommonSignatureProviderInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
