@@ -1,0 +1,3 @@
+madeyski_puap:
+    resource: "@MadeyskiEpuapBundle/Controller"
+    type:     annotation
