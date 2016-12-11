@@ -8,10 +8,9 @@ class CommonSignatureProvider implements CommonSignatureProviderInterface
     const PUAP_CALL_ID_LENGHT = 17;
 
     const KEY_APP_ID = 'app_id';
-    const KEY_PUB_KEY_PATH = 'security.pub_key_path';
-    const KEY_PRIVATE_KEY_PATH = 'security.private_key_path';
-    const KEY_SINGLE_SIGN_ON_SERVICE = 'url.single_sign_on';
-    const KEY_ARTIFACT_RESOLVE = 'url.artifact_resolve';
+    const KEY_PUB_KEY_PATH = 'pub_key_path';
+    const KEY_PRIVATE_KEY_PATH = 'private_key_path';
+    const KEY_URL_COLLECTION = 'url';
 
     const ROUTE_SINGLE_SIGN_ON = 'single_sign_on';
     const ROUTE_ARTIFACT_RESOLVE = 'artifact_resolve';
@@ -56,14 +55,11 @@ class CommonSignatureProvider implements CommonSignatureProviderInterface
         $this->privateKeyPath = $puapParams[self::KEY_PRIVATE_KEY_PATH];
 
         if (is_null($puapParams[self::KEY_APP_ID])) {
-            throw new \InvalidArgumentException('Nie podano wartosci puap.settings -> app_id');
+            throw new \InvalidArgumentException('Nie podano wartosci puap_settings -> app_id');
         }
 
         $this->appId = $puapParams[self::KEY_APP_ID];
-        $this->routesCollection = array(
-            self::ROUTE_SINGLE_SIGN_ON => $puapParams[self::KEY_SINGLE_SIGN_ON_SERVICE],
-            self::ROUTE_ARTIFACT_RESOLVE => $puapParams[self::KEY_ARTIFACT_RESOLVE],
-        );
+        $this->routesCollection = $puapParams[self::KEY_URL_COLLECTION];
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Madeyski\EpuapBundle\Controller;
 
+use Madeyski\EpuapBundle\Settings\CommonSignatureProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,11 +24,11 @@ class LoginController extends Controller
     public function authnRequest()
     {
         $samlRequest = $this->get('madeyski.puap.request.authn_request_generator')->getSamlRequest();
-        $puapSettings = $this->getParameter('puap.settings');
+        $puapSettings = $this->getParameter('puap_settings');
 
-        return $this->render('EpuapBundle:Login:authn.html.twig', array(
+        return $this->render('MadeyskiEpuapBundle:Login:authn.html.twig', array(
             'samlRequest' => $samlRequest,
-            'signOnUrl' => $puapSettings['url.single_sign_on'],
+            'signOnUrl' => $puapSettings[CommonSignatureProvider::KEY_URL_COLLECTION][CommonSignatureProvider::ROUTE_SINGLE_SIGN_ON],
         ));
     }
 
