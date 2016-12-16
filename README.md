@@ -1,5 +1,6 @@
 Epuap Bundle
 ============
+[![Build Status](https://travis-ci.org/tomaszmadeyski/epuap-bundle.svg?branch=master)](https://travis-ci.org/tomaszmadeyski/epuap-bundle)
 
 Configuration:
 --------------
