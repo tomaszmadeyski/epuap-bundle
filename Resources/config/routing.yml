@@ -1,3 +1,7 @@
-madeyski_puap:
-    resource: "@MadeyskiEpuapBundle/Controller"
-    type:     annotation
+madeyski_epuap.authn:
+    path: /epuap/authn
+    defaults: { _controller: MadeyskiEpuapBundle:Login:authnRequest }
+
+madeyski_epuap.artifact_resolve:
+    path: /epuap/consume
+    defaults: { _controller: MadeyskiEpuapBundle:Login:artifactResolve }

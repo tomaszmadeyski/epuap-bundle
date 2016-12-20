@@ -40,7 +40,7 @@ class AuthnRequestGenerator implements AuthnRequestGeneratorInterface
 
         $authnRequest = new \SAML2_AuthnRequest();
         $authnRequest->setIssuer($this->commonSignatureProvider->getAppId());
-        $authnRequest->setAssertionConsumerServiceURL($this->router->generate('puap_artifact_resolve', array(), UrlGeneratorInterface::ABSOLUTE_URL));
+        $authnRequest->setAssertionConsumerServiceURL($this->router->generate('madeyski_epuap.artifact_resolve', array(), UrlGeneratorInterface::ABSOLUTE_URL));
         $authnRequest->setDestination($routesCollection[CommonSignatureProvider::ROUTE_SINGLE_SIGN_ON]);
 
         $privateKey = new \XMLSecurityKey(\XMLSecurityKey::RSA_1_5, array('type'=>'private'));

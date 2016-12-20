@@ -3,7 +3,6 @@
 namespace Madeyski\EpuapBundle\Controller;
 
 use Madeyski\EpuapBundle\Settings\CommonSignatureProvider;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,16 +11,13 @@ use Symfony\Component\HttpFoundation\Response;
  * Class TestController
  *
  * @package Madeyski\EpuapBundle\Controller
- * @Route("/public/puap")
  */
 class LoginController extends Controller
 {
     /**
-     * @Route("/authn")
-     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function authnRequest()
+    public function authnRequestAction()
     {
         $samlRequest = $this->get('madeyski.puap.request.authn_request_generator')->getSamlRequest();
         $puapSettings = $this->getParameter('puap_settings');
@@ -33,9 +29,11 @@ class LoginController extends Controller
     }
 
     /**
-     * @Route("/login_comsume", name="puap_artifact_resolve")
+     * @param Request $request
+     *
+     * @return Response
      */
-    public function artifactResolve(Request $request)
+    public function artifactResolveAction(Request $request)
     {
         $artifactResolver = $this->get('madeyski.puap.artifact_resolver');
 
