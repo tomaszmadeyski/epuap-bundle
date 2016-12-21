@@ -23,8 +23,8 @@ class EpuapResponseConsumerUnitTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->eventDispatcher = $this->createMock('\Symfony\Component\EventDispatcher\EventDispatcherInterface');
-        $this->artifactResolver = $this->createMock('Madeyski\EpuapBundle\Request\ArtifactResolverInterface');
+        $this->eventDispatcher = $this->getMock('\Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $this->artifactResolver = $this->getMock('Madeyski\EpuapBundle\Request\ArtifactResolverInterface');
     }
 
     public function test_event_is_dipatched_on_success()
