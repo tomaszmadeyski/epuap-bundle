@@ -1,7 +1,9 @@
 madeyski_epuap.authn:
     path: /epuap/authn
-    defaults: { _controller: MadeyskiEpuapBundle:Login:authnRequest }
+    defaults: { _controller: madeyski_epuap.controller.authn:authnRequestAction }
 
 madeyski_epuap.artifact_resolve:
     path: /epuap/consume
-    defaults: { _controller: MadeyskiEpuapBundle:Login:artifactResolve }
+    defaults: { _controller: madeyski_epuap.controller.response_consumer:consumeAction }
+    methods: [GET]
+

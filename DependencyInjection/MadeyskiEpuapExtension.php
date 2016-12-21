@@ -18,7 +18,7 @@ class MadeyskiEpuapExtension extends Extension
 
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('puap_settings', $config['settings']);
+        $container->setParameter('epuap_settings', $config['settings']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

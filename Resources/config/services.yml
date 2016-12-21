@@ -1,16 +1,26 @@
+imports:
+    - { resource: services/controllers.yml }
+
 services:
-    madeyski.puap.request.authn_request_generator:
+    madeyski_epuap.artifact_resolver:
+        class: Madeyski\EpuapBundle\Request\ArtifactResolver
+        arguments:
+            - '@madeyski_epuap.settings.common_signature_provider'
+
+    madeyski_epuap.request.authn_request_generator:
         class: Madeyski\EpuapBundle\Request\AuthnRequestGenerator
         arguments:
-            - "@router"
-            - "@madeyski.puap.security.common_signature_provider"
+            - '@router'
+            - '@madeyski_epuap.settings.common_signature_provider'
 
-    madeyski.puap.security.common_signature_provider:
+    madeyski_epuap.settings.common_signature_provider:
         class: Madeyski\EpuapBundle\Settings\CommonSignatureProvider
         arguments:
-            - "%puap_settings%"
+            - '%epuap_settings%'
 
-    madeyski.puap.artifact_resolver:
-        class: Madeyski\EpuapBundle\Request\ArtifactResolutionRequestGenerator
+    madeyski_epuap.security.response_consumer:
+        class: Madeyski\EpuapBundle\Security\Authentication\EpuapResonseConsumer
         arguments:
-            - "@madeyski.puap.security.common_signature_provider"
+            - '@madeyski_epuap.artifact_resolver'
+            - '@event_dispatcher'
+

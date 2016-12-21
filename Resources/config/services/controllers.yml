@@ -1,0 +1,12 @@
+services:
+    madeyski_epuap.controller.authn:
+        class: Madeyski\EpuapBundle\Controller\AuthnController
+        arguments:
+            - '@templating'
+            - '@madeyski_epuap.request.authn_request_generator'
+            - '%epuap_settings%'
+
+    madeyski_epuap.controller.response_consumer:
+        class: Madeyski\EpuapBundle\Controller\ResponseConsumerController
+        arguments:
+            - '@madeyski_epuap.security.response_consumer'

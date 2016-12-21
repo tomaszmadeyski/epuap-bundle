@@ -2,12 +2,10 @@
 
 namespace Madeyski\EpuapBundle\Request;
 
-
-
 use Madeyski\EpuapBundle\Settings\CommonSignatureProvider;
 use Madeyski\EpuapBundle\Settings\CommonSignatureProviderInterface;
 
-class ArtifactResolutionRequestGenerator
+class ArtifactResolver implements ArtifactResolverInterface
 {
     /**
      * @var CommonSignatureProviderInterface
@@ -19,6 +17,9 @@ class ArtifactResolutionRequestGenerator
         $this->commonSignatureProvider = $commonSignatureProvider;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function resolve($artifactEnc)
     {
         if (null === $artifactEnc) {
