@@ -46,5 +46,7 @@ class EpuapResonseConsumer implements EpuapResponseConsumerInterface
 
         $puapLoginEvent = new EpuapLoginEvent($userName);
         $this->eventDispatcher->dispatch('epuap_login', $puapLoginEvent);
+
+        return true;
     }
 }

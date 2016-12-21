@@ -4,8 +4,11 @@ namespace Madeyski\EpuapBundle\Controller;
 
 
 use Madeyski\EpuapBundle\Security\Authentication\EpuapResponseConsumerInterface;
+use Madeyski\EpuapBundle\Settings\CommonSignatureProvider;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Routing\RouterInterface;
 
 /**
  * Controller provides action to consume SAML artifact from Epuap
@@ -21,19 +24,33 @@ class ResponseConsumerController
     protected $epuapResponseConsumer;
 
     /**
+     * @var RouterInterface
+     */
+    private $router;
+
+    /**
+     * @var array
+     */
+    private $epuapSettings;
+
+    /**
      * ResponseConsumerController constructor.
      *
      * @param EpuapResponseConsumerInterface $epuapResponseConsumer
+     * @param RouterInterface                $router
+     * @param array                          $epuapSettings
      */
-    public function __construct(EpuapResponseConsumerInterface $epuapResponseConsumer)
+    public function __construct(EpuapResponseConsumerInterface $epuapResponseConsumer, RouterInterface $router, array $epuapSettings)
     {
         $this->epuapResponseConsumer = $epuapResponseConsumer;
+        $this->router = $router;
+        $this->epuapSettings = $epuapSettings;
     }
 
     /**
      * @param Request $request
      *
-     * @return Response
+     * @return RedirectResponse
      */
     public function consumeAction(Request $request)
     {
@@ -43,8 +60,18 @@ class ResponseConsumerController
             throw new \InvalidArgumentException('Missing SAMLart parameter');
         }
 
-        $this->epuapResponseConsumer->consumeArtifact($samlArt);
+        $success = $this->epuapResponseConsumer->consumeArtifact($samlArt);
 
-        return new Response('ok');
+        if ($success) {
+            $redirectUrl = $this->epuapSettings[CommonSignatureProvider::KEY_URL_COLLECTION][CommonSignatureProvider::ROUTE_POST_LOGIN_REDIRECT];
+
+            if ('@' === substr($redirectUrl, 0, 1)) {
+                $redirectUrl = $this->router->generate(substr($redirectUrl, 1));
+            }
+
+            return new RedirectResponse($redirectUrl);
+        }
+
+        throw new AccessDeniedHttpException();
     }
 }

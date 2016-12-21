@@ -10,5 +10,10 @@ namespace Madeyski\EpuapBundle\Security\Authentication;
  */
 interface EpuapResponseConsumerInterface
 {
+    /**
+     * @param string $samlArtifact
+     *
+     * @return bool Return true if success, false otherwise
+     */
     public function consumeArtifact($samlArtifact);
 }

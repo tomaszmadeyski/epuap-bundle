@@ -14,6 +14,7 @@ class CommonSignatureProvider implements CommonSignatureProviderInterface
 
     const ROUTE_SINGLE_SIGN_ON = 'single_sign_on';
     const ROUTE_ARTIFACT_RESOLVE = 'artifact_resolve';
+    const ROUTE_POST_LOGIN_REDIRECT = 'post_login_redirect';
 
     /**
      * @var string

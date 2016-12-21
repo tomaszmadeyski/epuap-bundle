@@ -10,3 +10,5 @@ services:
         class: Madeyski\EpuapBundle\Controller\ResponseConsumerController
         arguments:
             - '@madeyski_epuap.security.response_consumer'
+            - '@router'
+            - '%epuap_settings%'
