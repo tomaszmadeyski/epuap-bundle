@@ -42,8 +42,64 @@ class ResponseConsumerControllerUnitTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\RedirectResponse', $result);
     }
 
+    /**
+     * @expectedException \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
+     */
     public function test_on_unsuccesfull_should_throw_exception()
     {
+        $controller = new ResponseConsumerController($this->consumer,
+            $this->router,
+            array(CommonSignatureProvider::KEY_URL_COLLECTION => array(CommonSignatureProvider::ROUTE_POST_LOGIN_REDIRECT => '/')));
 
+        $this->consumer->expects($this->once())
+            ->method('consumeArtifact')
+            ->will($this->returnValue(false));
+
+        $controller->consumeAction(new Request(array('SAMLart' => 123)));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function test_on_missing_argument_should_throw_exception()
+    {
+        $controller = new ResponseConsumerController($this->consumer,
+            $this->router,
+            array(CommonSignatureProvider::KEY_URL_COLLECTION => array(CommonSignatureProvider::ROUTE_POST_LOGIN_REDIRECT => '/')));
+
+        $controller->consumeAction(new Request());
+    }
+
+    public function test_on_route_name_as_a_redirect_router_should_generate_url()
+    {
+        $controller = new ResponseConsumerController($this->consumer,
+            $this->router,
+            array(CommonSignatureProvider::KEY_URL_COLLECTION => array(CommonSignatureProvider::ROUTE_POST_LOGIN_REDIRECT => '@test')));
+
+        $this->consumer->expects($this->once())
+            ->method('consumeArtifact')
+            ->will($this->returnValue(true));
+
+        $this->router->expects($this->once())
+            ->method('generate')
+            ->will($this->returnValue('/'));
+
+        $controller->consumeAction(new Request(array('SAMLart' => 123)));
+    }
+
+    public function test_on_url_as_a_redirect_router_should_not_generate_url()
+    {
+        $controller = new ResponseConsumerController($this->consumer,
+            $this->router,
+            array(CommonSignatureProvider::KEY_URL_COLLECTION => array(CommonSignatureProvider::ROUTE_POST_LOGIN_REDIRECT => '/')));
+
+        $this->consumer->expects($this->once())
+            ->method('consumeArtifact')
+            ->will($this->returnValue(true));
+
+        $this->router->expects($this->never())
+            ->method('generate');
+
+        $controller->consumeAction(new Request(array('SAMLart' => 123)));
     }
 }

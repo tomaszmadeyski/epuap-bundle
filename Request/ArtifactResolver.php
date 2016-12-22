@@ -22,7 +22,7 @@ class ArtifactResolver implements ArtifactResolverInterface
      */
     public function resolve($artifactEnc)
     {
-        if (null === $artifactEnc) {
+        if (!$artifactEnc) {
             throw new \InvalidArgumentException('Missing SAMLart parameter');
         }
 
